@@ -21,25 +21,62 @@ class HomeViewModel @Inject constructor(private val coinDomain: CoinDomain) : Vi
         MutableLiveData<ArrayList<Coin>>()
     }
 
+    private val loading: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+
+    private var page = 0
+
     init {
         loadCoins()
     }
 
-    private fun loadCoins() {
+    fun loadCoins() {
 
-        coinDomain.loadCoins("10",
+        page = 0
+        loading.value = true
+        coinDomain.loadCoins(page,"20",
                 {
-                    Log.i("LOG","resp HomeViewModel")
+                    loading.value = false
                     coins.value = it
                 },
                 {
+                    loading.value = false
                     Log.i("LOG","resp: ERROR: ${it.message}")
                 }
         )
 
     }
 
+    fun nextPage(){
+
+        if (loading.value == false){
+
+            loading.value = true
+
+            page ++
+
+            coinDomain.loadCoins(page,"20",
+                    {
+                        loading.value = false
+
+                        val list = coins.value
+                        list?.addAll(it)
+                        coins.value = list
+                    },
+                    {
+                        loading.value = false
+                        Log.i("LOG","resp: nextPage ERROR: ${it.message}")
+                    }
+            )
+        }
+
+    }
+
     fun getCoins(): LiveData<ArrayList<Coin>>? {
         return this.coins
+    }
+    fun getProgresControl():LiveData<Boolean>?{
+        return this.loading
     }
 }

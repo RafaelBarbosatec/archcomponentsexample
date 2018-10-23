@@ -15,12 +15,13 @@ import javax.inject.Inject
 class CoinDomain@Inject constructor(private val coinApi: CoinApi){
 
 
-    fun loadCoins(limite:String, onNext:(ArrayList<Coin>) -> Unit, onError:(Throwable) -> Unit ){
+    fun loadCoins(page:Int,limite:String, onNext:(ArrayList<Coin>) -> Unit, onError:(Throwable) -> Unit ){
 
-        coinApi.getCoins("BRL",limite)
+        coinApi.getCoins("BRL",limite,page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onNext,onError)
 
     }
+
 }

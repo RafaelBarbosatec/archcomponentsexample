@@ -13,5 +13,9 @@ interface CoinApi {
      * Get the list of the pots from the API
      */
     @GET("ticker/")
-    fun getCoins(@Query("convert") convert:String, @Query("limit") limit:String): Observable<ArrayList<Coin>>
+    fun getCoins(
+            @Query("convert") convert:String,
+            @Query("limit") limit:String,
+            @Query("start") page:Int
+    ): Observable<ArrayList<Coin>>
 }
