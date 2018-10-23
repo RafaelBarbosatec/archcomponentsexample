@@ -5,6 +5,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.barbosa.rafael.archcomponentsexample.data.network.CoinApi
+import com.barbosa.rafael.archcomponentsexample.domain.CoinDomain.CoinDomain
 import com.barbosa.rafael.archcomponentsexample.domain.CoinDomain.model.Coin
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -14,7 +15,7 @@ import javax.inject.Inject
 /**
  * Created by rafael on 22/10/18.
  */
-class HomeViewModel @Inject constructor(private val coinApi: CoinApi) : ViewModel() {
+class HomeViewModel @Inject constructor(private val coinDomain: CoinDomain) : ViewModel() {
 
     private val coins: MutableLiveData<ArrayList<Coin>> by lazy {
         MutableLiveData<ArrayList<Coin>>()
@@ -26,16 +27,15 @@ class HomeViewModel @Inject constructor(private val coinApi: CoinApi) : ViewMode
 
     private fun loadCoins() {
 
-        coinApi.getCoins("BRL","10")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            Log.i("LOG","resp HomeViewModel")
-                            coins.value = it
-                        },
-                        { Log.i("LOG","resp: ERROR: ${it.message}") }
-                )
+        coinDomain.loadCoins("10",
+                {
+                    Log.i("LOG","resp HomeViewModel")
+                    coins.value = it
+                },
+                {
+                    Log.i("LOG","resp: ERROR: ${it.message}")
+                }
+        )
 
     }
 

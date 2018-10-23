@@ -1,6 +1,6 @@
 package com.barbosa.rafael.archcomponentsexample.di.modules
 
-import com.barbosa.rafael.archcomponentsexample.MainActivity
+import com.barbosa.rafael.archcomponentsexample.view.home.HomeActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -11,7 +11,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityModule {
 
     @ContributesAndroidInjector
-    internal abstract fun contributeMainActivity(): MainActivity
+    internal abstract fun contributeMainActivity(): HomeActivity
 
     // Add bindings for other sub-components here
 }
