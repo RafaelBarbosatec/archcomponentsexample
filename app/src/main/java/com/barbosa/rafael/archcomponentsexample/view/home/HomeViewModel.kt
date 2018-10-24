@@ -33,7 +33,9 @@ class HomeViewModel @Inject constructor(private val homeDataProvider: HomeDataPr
 
         page = 0
         loading.value = true
-        homeDataProvider.loadCoins(page,limit.toString(),
+        homeDataProvider.loadCoins(
+                page,
+                limit.toString(),
                 {
                     loading.postValue(false)
                     coins.postValue(it)
@@ -54,7 +56,9 @@ class HomeViewModel @Inject constructor(private val homeDataProvider: HomeDataPr
 
             page ++
 
-            homeDataProvider.loadCoins((page*limit),limit.toString(),
+            homeDataProvider.loadCoins(
+                    (page*limit),
+                    limit.toString(),
                     {
                         loading.postValue(false)
                         val list = coins.value
