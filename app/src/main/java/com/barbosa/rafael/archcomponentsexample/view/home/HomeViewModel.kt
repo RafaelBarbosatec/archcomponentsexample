@@ -73,7 +73,7 @@ class HomeViewModel @Inject constructor(private val homeDataProvider: HomeDataPr
     fun getCoins(): LiveData<ArrayList<Coin>>? {
         return this.coins
     }
-    fun getProgresControl():LiveData<Boolean>?{
+    fun getProgresControl(): LiveData<Boolean>?{
         return this.loading
     }
 }
