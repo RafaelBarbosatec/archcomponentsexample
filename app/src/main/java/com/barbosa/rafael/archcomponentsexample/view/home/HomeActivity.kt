@@ -37,22 +37,9 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initViews() {
 
-        val lm = LinearLayoutManager(this)
-        recyclerview_coins.layoutManager = lm
-        adapter = CoinAdapter(ArrayList(),this)
-        recyclerview_coins.adapter =  adapter
-
-        recyclerview_coins.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val lastPosition = lm.findLastCompletelyVisibleItemPosition()
-                val count = lm.itemCount - 4
-                if (lastPosition >= count ) {
-                    viewModel.nextPage()
-                }
-            }
+        adapter = CoinAdapter(ArrayList(),this,recyclerview_coins)
+        adapter?.setNextListern({
+            viewModel.nextPage()
         })
 
     }

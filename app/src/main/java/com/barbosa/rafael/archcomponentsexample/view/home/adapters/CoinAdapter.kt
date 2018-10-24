@@ -1,6 +1,7 @@
 package com.barbosa.rafael.archcomponentsexample.view.home.adapters
 
 import android.content.Context
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,30 @@ import kotlinx.android.synthetic.main.item_coin.view.*
  * Created by rafael on 23/10/18.
  */
 class CoinAdapter(var mlista: ArrayList<Coin>,
-                  val context: Context?) : RecyclerView.Adapter<CoinAdapter.MyViewHolder>(){
+                  val context: Context?,
+                  val recyclerView: RecyclerView) : RecyclerView.Adapter<CoinAdapter.MyViewHolder>(){
+
+    private var listern: (() -> Unit)? = null
+
+    init {
+
+        val lm = LinearLayoutManager(context)
+        recyclerView.layoutManager = lm
+        recyclerView.adapter = this
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val lastPosition = lm.findLastCompletelyVisibleItemPosition()
+                val count = lm.itemCount - 4
+                if (lastPosition >= count ) {
+                    listern?.invoke()
+                }
+            }
+        })
+
+    }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
@@ -42,6 +66,11 @@ class CoinAdapter(var mlista: ArrayList<Coin>,
         notifyDataSetChanged()
     }
 
+    fun setNextListern(listern: () -> Unit){
+        this.listern = listern
+    }
+
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
 }
