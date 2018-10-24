@@ -4,7 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.barbosa.rafael.archcomponentsexample.domain.CoinDomain.model.Coin
+import com.barbosa.rafael.archcomponentsexample.domain.coinDomain.model.Coin
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 import android.arch.lifecycle.ViewModelProvider
@@ -48,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
                 super.onScrolled(recyclerView, dx, dy)
 
                 val lastPosition = lm.findLastCompletelyVisibleItemPosition()
-                val count = lm.itemCount - 5
+                val count = lm.itemCount - 4
                 if (lastPosition >= count ) {
                     viewModel.nextPage()
                 }

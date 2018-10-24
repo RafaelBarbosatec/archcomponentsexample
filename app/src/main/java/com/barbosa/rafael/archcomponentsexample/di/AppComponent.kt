@@ -2,10 +2,7 @@ package com.barbosa.rafael.archcomponentsexample.di
 
 import android.app.Application
 import com.barbosa.rafael.archcomponentsexample.MyApplication
-import com.barbosa.rafael.archcomponentsexample.di.modules.ActivityModule
-import com.barbosa.rafael.archcomponentsexample.di.modules.AppModule
-import com.barbosa.rafael.archcomponentsexample.di.modules.DomainModule
-import com.barbosa.rafael.archcomponentsexample.di.modules.ViewModelModule
+import com.barbosa.rafael.archcomponentsexample.di.modules.*
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -20,7 +17,8 @@ import javax.inject.Singleton
         AppModule::class,
         ActivityModule::class,
         ViewModelModule::class,
-        DomainModule::class))
+        DomainModule::class,
+        DataProviderModule::class))
 interface AppComponent {
     @Component.Builder
     interface Builder {

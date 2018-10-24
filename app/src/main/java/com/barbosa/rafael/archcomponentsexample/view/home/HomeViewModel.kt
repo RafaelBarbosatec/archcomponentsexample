@@ -4,18 +4,15 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
-import com.barbosa.rafael.archcomponentsexample.data.network.CoinApi
-import com.barbosa.rafael.archcomponentsexample.domain.CoinDomain.CoinDomain
-import com.barbosa.rafael.archcomponentsexample.domain.CoinDomain.model.Coin
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.barbosa.rafael.archcomponentsexample.domain.coinDomain.model.Coin
+import com.barbosa.rafael.archcomponentsexample.view.home.dataProvider.HomeDataProviderContract
 import javax.inject.Inject
 
 
 /**
  * Created by rafael on 22/10/18.
  */
-class HomeViewModel @Inject constructor(private val coinDomain: CoinDomain) : ViewModel() {
+class HomeViewModel @Inject constructor(private val homeDataProvider: HomeDataProviderContract) : ViewModel() {
 
     private val coins: MutableLiveData<ArrayList<Coin>> by lazy {
         MutableLiveData<ArrayList<Coin>>()
@@ -26,6 +23,7 @@ class HomeViewModel @Inject constructor(private val coinDomain: CoinDomain) : Vi
     }
 
     private var page = 0
+    private val limit = 20
 
     init {
         loadCoins()
@@ -35,13 +33,13 @@ class HomeViewModel @Inject constructor(private val coinDomain: CoinDomain) : Vi
 
         page = 0
         loading.value = true
-        coinDomain.loadCoins(page,"20",
+        homeDataProvider.loadCoins(page,limit.toString(),
                 {
-                    loading.value = false
-                    coins.value = it
+                    loading.postValue(false)
+                    coins.postValue(it)
                 },
                 {
-                    loading.value = false
+                    loading.postValue(false)
                     Log.i("LOG","resp: ERROR: ${it.message}")
                 }
         )
@@ -56,16 +54,15 @@ class HomeViewModel @Inject constructor(private val coinDomain: CoinDomain) : Vi
 
             page ++
 
-            coinDomain.loadCoins(page,"20",
+            homeDataProvider.loadCoins((page*limit),limit.toString(),
                     {
-                        loading.value = false
-
+                        loading.postValue(false)
                         val list = coins.value
                         list?.addAll(it)
-                        coins.value = list
+                        coins.postValue(list)
                     },
                     {
-                        loading.value = false
+                        loading.postValue(false)
                         Log.i("LOG","resp: nextPage ERROR: ${it.message}")
                     }
             )

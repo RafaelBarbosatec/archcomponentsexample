@@ -1,18 +1,15 @@
-package com.barbosa.rafael.archcomponentsexample.domain.CoinDomain
+package com.barbosa.rafael.archcomponentsexample.domain.coinDomain
 
-import android.util.Log
 import com.barbosa.rafael.archcomponentsexample.data.network.CoinApi
-import com.barbosa.rafael.archcomponentsexample.domain.CoinDomain.model.Coin
-import io.reactivex.Observer
+import com.barbosa.rafael.archcomponentsexample.domain.coinDomain.model.Coin
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
  * Created by rafael on 22/10/18.
  */
-class CoinDomain@Inject constructor(private val coinApi: CoinApi){
+class CoinDomain @Inject constructor(private val coinApi: CoinApi){
 
 
     fun loadCoins(page:Int,limite:String, onNext:(ArrayList<Coin>) -> Unit, onError:(Throwable) -> Unit ){

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.barbosa.rafael.archcomponentsexample.R
-import com.barbosa.rafael.archcomponentsexample.domain.CoinDomain.model.Coin
+import com.barbosa.rafael.archcomponentsexample.domain.coinDomain.model.Coin
 import com.barbosa.rafael.archcomponentsexample.util.loadFromUrl
 import kotlinx.android.synthetic.main.item_coin.view.*
 

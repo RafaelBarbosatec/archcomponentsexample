@@ -1,6 +1,6 @@
 package com.barbosa.rafael.archcomponentsexample.data.network
 
-import com.barbosa.rafael.archcomponentsexample.domain.CoinDomain.model.Coin
+import com.barbosa.rafael.archcomponentsexample.domain.coinDomain.model.Coin
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

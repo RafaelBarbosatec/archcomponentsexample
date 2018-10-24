@@ -1,4 +1,4 @@
-package com.barbosa.rafael.archcomponentsexample.domain.CoinDomain.model
+package com.barbosa.rafael.archcomponentsexample.domain.coinDomain.model
 
 /**
  * Created by rafael on 22/10/18.

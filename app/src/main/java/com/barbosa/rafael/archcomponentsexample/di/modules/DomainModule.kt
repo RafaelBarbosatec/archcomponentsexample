@@ -1,9 +1,7 @@
 package com.barbosa.rafael.archcomponentsexample.di.modules
 
 import com.barbosa.rafael.archcomponentsexample.data.network.CoinApi
-import com.barbosa.rafael.archcomponentsexample.domain.CoinDomain.CoinDomain
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.barbosa.rafael.archcomponentsexample.domain.coinDomain.CoinDomain
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
